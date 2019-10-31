@@ -47,7 +47,6 @@ class Order:
         if self.state == "additions":
             self.prompt_for_addition()
 
-
     def add_item_to_order(self, input):
 
         if "burger" in input:
@@ -74,16 +73,15 @@ class Order:
             self.state = "menu_items"
             self.say("Let me get my manager to help you")
 
-
-
     def add_to_item(self, input):
         if "no" in input:
             self.state = "removals"
             self.prompt_for_removal()
             return
         item = self.order[-1]
-        ingredient = (ingredient for ingredient in item.ingredients if ingredient in input)
-        item.additions.append(ingredient)
+        for ingredient in item.ingredients:
+            if ingredient in input:
+                item.add_addition(ingredient)
         self.say("anything else?")
         return
 
@@ -93,8 +91,9 @@ class Order:
             self.prompt_for_end_order()
             return
         item = self.order[-1]
-        ingredient = (ingredient for ingredient in item.ingredients if ingredient in input)
-        item.removals.append(ingredient)
+        for ingredient in item.ingredients:
+            if ingredient in input:
+                item.add_removal(ingredient)
         self.say("anything else?")
         return
 
@@ -105,7 +104,14 @@ class Order:
         return
 
     def confirm_order(self):
-        self.say(self.order_string)
+        order = ""
+        for item in self.order:
+            order += (" " + item.name)
+            for addition in item.additions:
+                order += " with " + addition
+            for removal in item.removals:
+                order += " with " + removal
+        self.say(order)
 
     def order_string(self):
         return
@@ -118,6 +124,7 @@ class Order:
 
 order = Order()
 order.input("burger")
+order.input("cheese")
 order.input("no")
 order.input("no")
 order.input("yes")
