@@ -1,3 +1,4 @@
+from menu import *
 class Order:
 
     def __init__(self):
@@ -21,26 +22,43 @@ class Order:
 
 
     def greet(self):
-        print("Welcome to Themis-- Where customer success comes first. What can I get for you today?")
+        self.say("Welcome to Themis-- Where customer success comes first. What can I get for you today?")
 
     def prompt_for_menu_item(self):
-        print("anything else for you today?")
+        self.say("anything else for you today?")
 
     def prompt_for_addition(self):
-        print("anything extra on that?")
+        self.say("anything extra on that?")
 
     def prompt_for_addition(self):
-        print("need anything removed from that?")
+        self.say("need anything removed from that?")
 
     def prompt_for_end_order(self):
-        print("is that everything?")
+        self.confirm_order()
+        self.say("is that everything?")
 
     def farewell(self):
-        print("Thank you for choosing Themis hunger solutions, stay fit and have fun")
+        self.say("Thank you for choosing Themis hunger solutions, stay fit and have fun")
 
 
     def add_item_to_order(self, input):
-        return
+        if "burger" in input:
+            state
+            if "veggie" in input:
+                self.order.append(VeggieBurger())
+            if "chicken" in input:
+                self.order.append(ChickenBurger())
+            else:
+                self.order.append(BeefBurger())
+        elif "fries" in input:
+            if "curly" in input:
+                self.order.append(CurlyFries())
+            if "yam" in input:
+                self.order.append(YamFries())
+            else:
+                self.order.append(RegularFries())
+        else:
+
 
     def add_to_item(self, input):
         return
@@ -49,14 +67,21 @@ class Order:
         return
 
     def order_complete(self, input):
+        self.farewell()
+        del self
+        return
 
     def confirm_order(self):
-        print(self.order_string)
+        self.say(self.order_string)
 
     def order_string(self):
         return
 
     def get_manager(self):
-        print("Let me get my manager to help you")
+        self.say("Let me get my manager to help you")
+
+    def say(self, string):
+        print(string)
 
 Order()
+Burger("small")
