@@ -1,8 +1,10 @@
 from __future__ import division
-from OrderController import *
 import re
 import sys
 
+sys.path.insert(1, "app/text_processing")
+
+import orderController
 from google.cloud import speech
 from google.cloud.speech import enums
 from google.cloud.speech import types
@@ -123,7 +125,7 @@ def listen_print_loop(responses):
             num_chars_printed = len(transcript)
 
         else:
-            OrderController.order.input(transcript + overwrite_chars)
+            oc.order.input(transcript + overwrite_chars)
 
             # Exit recognition if any of the transcribed phrases could be
             # one of our keywords.
@@ -160,4 +162,5 @@ def main():
 
 
 if __name__ == '__main__':
+    oc = orderController.OrderController()
     main()

@@ -7,6 +7,7 @@ class Order:
         self.greet()
 
     def input(self, input):
+        input = input.lower()
         if self.state == "greet":
             self.state = "menu_item"
         elif self.state == "menu_item":
