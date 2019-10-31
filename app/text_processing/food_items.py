@@ -1,70 +1,66 @@
-from abc import ABC, abstractmethod
-
-
-class FoodItem(ABC):
-    def __init__(self):
-        pass
-
-    @property
-    @abstractmethod
-    def food_name(self):
-        pass
-    # aliases?
-
-    @property
-    @abstractmethod
-    def size(self):
-        pass
-
-    @property
-    @abstractmethod
-    def type_options(self):
-        pass
-
-
-class Burger(FoodItem):
-    food_name = "Burger"
+class Burger:
     type_options = ["Beef", "Chicken", "Veggie"]
+    size_options = ["Single", "Double"]
 
-    @property
-    @abstractmethod
-    def size(self):
-        pass
+    def __init__(self, size):
+        self.size = size
 
+    @classmethod
+    def is_valid_type(size):
+        return size in Burger.type_options
 
-class BeefBurger(Burger, ABC):
-    food_name = "Beef Burger"
-    stock = 10
-
-
-class ChickenBurger(Burger, ABC):
-    food_name = "Chicken Burger"
-    stock = 10
+    @classmethod
+    def is_valid_size(size):
+        return size in Burger.size_options
 
 
-class VeggieBurger(Burger, ABC):
-    food_name = "Veggie Burger"
-    stock = 10
+class BeefBurger(Burger):
+    def __init__(self, size):
+        self.name = "Beef Burger"
+        super().__init__(size)
 
 
-class Fries(FoodItem, ABC):
-    food_name = "Fries"
+class ChickenBurger(Burger):
+    def __init__(self, size):
+        self.name = "Chicken Burger"
+        super().__init__(size)
+
+
+class VeggieBurger(Burger):
+    def __init__(self, size):
+        self.name = "Veggie Burger"
+        super().__init__(size)
+
+
+class Fries:
     type_options = ["Regular", "Yam", "Curly"]
+    size_options = ["Small", "Medium", "Large"]
 
-    def stock(self):
-        pass
+    def __init__(self, size):
+        self.size = size
+
+    @classmethod
+    def is_valid_type(size):
+        return size in Fries.type_options
+
+    @classmethod
+    def is_valid_size(size):
+        return size in Fries.size_options
 
 
-class RegularFries(Fries, ABC):
-    food_name = "Regular Fries"
-    stock = 30
+class RegularFries(Fries):
+    def __init__(self, size):
+        self.name = "Regular Fries"
+        super().__init__(size)
 
 
-class YamFries(Fries, ABC):
-    food_name = "Yam Fries"
-    stock = 20
+class YamFries(Fries):
+    def __init__(self, size):
+        self.name = "Yam Fries"
+        super().__init__(size)
 
 
-class CurlyFries(Fries, ABC):
-    food_name = "Curly Fries"
-    stock = 15
+class CurlyFries(Fries):
+    def __init__(self, size):
+        self.name = "Curly Fries"
+        super().__init__(size)
