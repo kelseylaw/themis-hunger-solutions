@@ -63,7 +63,7 @@ class Burger:
         elif ingredient in self.ingredients:
             self.removals.append(ingredient)
         else:
-            print("What the fries! I can't remove that from the burger!")
+            print("What the fries! I can't remove that!")
 
 
 class BeefBurger(Burger):
@@ -132,7 +132,7 @@ class Fries:
 
     def add_addition(self, ingredient):
         if ingredient in self.additions:
-            print("You've already added that extra ingredient to the burger! Do you really need that much more?")
+            print("You've already added that extra ingredient to the fries! Do you really need that much more?")
         elif ingredient in Fries.possible_ingredients:
             self.additions.append(ingredient)
         else:
@@ -151,17 +151,17 @@ class RegularFries(Fries):
     def __init__(self, size):
         super().__init__(size)
         self.name = "regular fries"
-        self.ingredients = ["Potatoes", "Salt"]
+        self.ingredients = ["potatoes", "salt"]
 
 class YamFries(Fries):
     def __init__(self, size):
         super().__init__(size)
         self.name = "yam fries"
-        self.ingredients = ["Yams", "Salt"]
+        self.ingredients = ["yams", "salt"]
 
 
 class CurlyFries(Fries):
     def __init__(self, size):
         super().__init__(size)
         self.name = "curly fries"
-        self.ingredients = ["Potatoes", "Salt"]
+        self.ingredients = ["potatoes", "salt"]
