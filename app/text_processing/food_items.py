@@ -68,26 +68,26 @@ class Burger:
 
 class BeefBurger(Burger):
     def __init__(self, size):
+        super().__init__(size)
         self.name = "beef burger"
         self.price = 7.99
         self.ingredients = ["bun", "beef patty", "cheese", "lettuce", "tomato", "ketchup", "mustard", "pickles",  "onions"]
-        super().__init__(size)
 
 
 class ChickenBurger(Burger):
     def __init__(self, size):
+        super().__init__(size)
         self.name = "chicken burger"
         self.price = 8.99
         self.ingredients = ["bun", "chicken patty", "lettuce", "tomato", "mayo", "pickles", "onions"]
-        super().__init__(size)
 
 
 class VeggieBurger(Burger):
     def __init__(self, size):
+        super().__init__(size)
         self.name = "veggie burger"
         self.price = 8.99
         self.ingredients = ["bun", "veggie patty", "cheese", "lettuce", "tomato", "ketchup", "mustard", "pickles", "onions"]
-        super().__init__(size)
 
 
 class Fries:
