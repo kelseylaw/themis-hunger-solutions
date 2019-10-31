@@ -4,10 +4,12 @@ import sys
 sys.path.insert(1, "app/audio_output")
 
 import PlayMP3
+import TextToSpeech
 class Order:
 
     def __init__(self):
         self.speak = PlayMP3.PlayMP3()
+        self.text_to_speech = TextToSpeech.TextToSpeech()
         self.state = "greet"
         self.order = []
         self.greet()
@@ -32,7 +34,7 @@ class Order:
     def greet(self):
 
         # self.say("Welcome to Themis-- Where customer success comes first. What can I get for you?")
-        self.speak.playMP3("prompt_for_menu_item")
+        self.speak.playMP3("greet")
         self.state = "menu_item"
 
     def prompt_for_menu_item(self):
@@ -86,7 +88,8 @@ class Order:
                 return "fries"
         else:
             self.state = "menu_items"
-            self.say("Let me get my manager to help you")
+            # self.say("Let me get my manager to help you")
+            self.speak("get_manager")
 
     def add_to_item(self, input):
         if "no" in input:
@@ -138,7 +141,8 @@ class Order:
                 if removals > 0:
                     order += " or " + removal
                 removals += 1
-        self.say(order)
+        # self.say(order)
+        self.text_to_speech.textToSpeech(order, "order")
 
     def order_string(self):
         return
