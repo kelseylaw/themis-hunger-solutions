@@ -18,6 +18,7 @@ class TextToMP3:
         # voice gender ("neutral")
         voice = texttospeech.types.VoiceSelectionParams(
             language_code='en-AU',
+            name='en-AU-Wavenet-B',
             ssml_gender=texttospeech.enums.SsmlVoiceGender.NEUTRAL)
 
         # Select the type of audio file you want returned
