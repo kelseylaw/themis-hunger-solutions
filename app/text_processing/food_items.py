@@ -1,6 +1,21 @@
 class Burger:
     type_options = ["Beef", "Chicken", "Veggie"]
     size_options = ["Single", "Double"]
+    possible_ingredients = [
+        "Bun",
+        "Beef Patty",
+        "Chicken Patty",
+        "Veggie Patty",
+        "Cheese",
+        "Lettuce",
+        "Tomato",
+        "Ketchup",
+        "Mayo",
+        "Mustard",
+        "Pickles",
+        "Onions",
+        "Peppers",
+    ]
 
     def __init__(self, size):
         self.name = "Burger"
@@ -10,7 +25,7 @@ class Burger:
         if size in self.size_options:
             self.size = size
         else:
-            raise Exception("Oh no! '" + size + "' is not a valid size for this burger!")
+            raise Exception("Oh no! That's not a valid size for this burger!")
 
     @classmethod
     def is_valid_type(size):
@@ -22,11 +37,20 @@ class Burger:
 
     def add_addition(self, ingredient):
         if ingredient in self.additions:
-            raise Exception("You've already added extra " + ingredient + " to the burger!")
-        elif ingredient in self.ingredients:
+            raise Exception("You've already added that extra ingredient to the burger! Do you really need that much more?")
+        elif ingredient in Burger.possible_ingredients:
             self.additions.append(ingredient)
         else:
-            raise Exception("What the fries! I can't add extra " + ingredient + " to the burger!")
+            raise Exception("What the fries! I can't add that to the burger!")
+
+    def add_removal(self, ingredient):
+        if ingredient in self.removals:
+            raise Exception("Darn! You've already removed that from the burger!")
+        elif ingredient in self.ingredients:
+            self.removals.append(ingredient)
+        else:
+            raise Exception("What the fries! I can't remove that from the burger!")
+
 
 class BeefBurger(Burger):
     def __init__(self, size):
@@ -52,6 +76,12 @@ class VeggieBurger(Burger):
 class Fries:
     type_options = ["Regular", "Yam", "Curly"]
     size_options = ["Small", "Medium", "Large"]
+    possible_ingredients = [
+        "Potatoes",
+        "Yams",
+        "Salt",
+        "Curl"
+    ]
 
     def __init__(self, size):
         self.name = "Fries"
@@ -62,7 +92,7 @@ class Fries:
         if size in self.size_options:
             self.size = size
         else:
-            raise Exception("Oh no! '" + size + "' is not a valid size for the fries!")
+            raise Exception("Oh no! That's not a valid size for the fries!")
 
     @classmethod
     def is_valid_type(size):
@@ -80,11 +110,19 @@ class Fries:
 
     def add_addition(self, ingredient):
         if ingredient in self.additions:
-            raise Exception("You've already added extra " + ingredient + " to the fries!")
-        elif ingredient in self.ingredients:
+            raise Exception("You've already added that extra ingredient to the burger! Do you really need that much more?")
+        elif ingredient in Fries.possible_ingredients:
             self.additions.append(ingredient)
         else:
-            raise Exception("What the fries! I can't add extra " + ingredient + " to the fries!")
+            raise Exception("What the fries! I can't add that to your fries!")
+
+    def add_removal(self, ingredient):
+        if ingredient in self.removals:
+            raise Exception("Darn! You've already removed that from the fries!")
+        elif ingredient in self.ingredients:
+            self.removals.append(ingredient)
+        else:
+            raise Exception("What the fries! I can't add that!")
 
 
 class RegularFries(Fries):

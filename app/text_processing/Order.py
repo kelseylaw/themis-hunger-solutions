@@ -1,10 +1,16 @@
 from menu import *
+from app.text_processing.food_items import BeefBurger
+
+
 class Order:
 
     def __init__(self):
         self.state = "greet"
         self.order = []
         self.greet()
+
+        newBB = BeefBurger("Single")
+        print(newBB.get_size())
 
     def input(self, input):
         if self.state == "greet":
