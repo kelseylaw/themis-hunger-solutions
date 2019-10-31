@@ -1,5 +1,5 @@
 from __future__ import division
-
+from OrderController import *
 import re
 import sys
 
@@ -123,7 +123,7 @@ def listen_print_loop(responses):
             num_chars_printed = len(transcript)
 
         else:
-            print(transcript + overwrite_chars)
+            OrderController.order.input(transcript + overwrite_chars)
 
             # Exit recognition if any of the transcribed phrases could be
             # one of our keywords.

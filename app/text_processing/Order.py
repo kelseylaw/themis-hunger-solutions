@@ -1,4 +1,3 @@
-from menu import *
 class Order:
 
     def __init__(self):
@@ -22,7 +21,7 @@ class Order:
 
 
     def greet(self):
-        self.say("Welcome to Themis-- Where customer success comes first. What can I get for you today?")
+        self.say("Welcome to Themis-- Where customer success comes first. What can I get for you?")
 
     def prompt_for_menu_item(self):
         self.say("anything else for you today?")
@@ -58,6 +57,7 @@ class Order:
             else:
                 self.order.append(RegularFries())
         else:
+            self.say("Let me get my manager to help you")
 
 
     def add_to_item(self, input):
@@ -83,5 +83,6 @@ class Order:
     def say(self, string):
         print(string)
 
-Order()
+order()
+Order.input("hello")
 Burger("small")
