@@ -94,8 +94,10 @@ class Order:
             self.prompt_for_removal()
             return
         item = self.order[-1]
+        print("reeee?" + str(item.ingredients))
         for ingredient in item.ingredients:
             if ingredient in input:
+                print("reeee" + ingredient)
                 item.add_addition(ingredient)
         self.say("anything else?")
         return
@@ -122,10 +124,20 @@ class Order:
         order = ""
         for item in self.order:
             order += (" " + item.name)
+            additions = 0
             for addition in item.additions:
-                order += " with " + addition
+                if additions == 0:
+                    order += " with " + addition
+                if additions > 0:
+                    order += " and " + addition
+                additions += 1
+            removals = 0
             for removal in item.removals:
-                order += " with " + removal
+                if removals == 0:
+                    order += " with " + addition
+                if removals > 0:
+                    order += " and " + addition
+                removals += 1
         self.say(order)
 
     def order_string(self):
@@ -136,10 +148,3 @@ class Order:
 
     def say(self, string):
         print(string)
-
-# order = Order()
-# order.input("burger")
-# order.input("cheese")
-# order.input("no")
-# order.input("no")
-# order.input("yes")
