@@ -1,3 +1,4 @@
+from food_items import *
 class Order:
 
     def __init__(self):
@@ -9,7 +10,7 @@ class Order:
         if self.state == "greet":
             self.state = "menu_item"
         elif self.state == "menu_item":
-            self.add_item_to_order(input)
+            self.try_to_add_item(input)
         elif self.state == "additions":
             self.add_to_item(input)
         elif self.state == "removals":
@@ -22,6 +23,7 @@ class Order:
 
     def greet(self):
         self.say("Welcome to Themis-- Where customer success comes first. What can I get for you?")
+        self.state = "menu_item"
 
     def prompt_for_menu_item(self):
         self.say("anything else for you today?")
@@ -29,7 +31,7 @@ class Order:
     def prompt_for_addition(self):
         self.say("anything extra on that?")
 
-    def prompt_for_addition(self):
+    def prompt_for_removal(self):
         self.say("need anything removed from that?")
 
     def prompt_for_end_order(self):
@@ -39,36 +41,67 @@ class Order:
     def farewell(self):
         self.say("Thank you for choosing Themis hunger solutions, stay fit and have fun")
 
+    def try_to_add_item(self, input):
+        self.state = "additions"
+        self.say(self.add_item_to_order(input))
+        if self.state == "additions":
+            self.prompt_for_addition()
+
 
     def add_item_to_order(self, input):
+
         if "burger" in input:
-            state
             if "veggie" in input:
-                self.order.append(VeggieBurger())
+                self.order.append(VeggieBurger('Single'))
+                return "Veggie Burger"
             if "chicken" in input:
-                self.order.append(ChickenBurger())
+                self.order.append(ChickenBurger('Single'))
+                return "Chicken Burger"
             else:
-                self.order.append(BeefBurger())
+                self.order.append(BeefBurger('Single'))
+                return "Beef Burger"
         elif "fries" in input:
             if "curly" in input:
-                self.order.append(CurlyFries())
+                self.order.append(CurlyFries('Small'))
+                return "curly fries"
             if "yam" in input:
-                self.order.append(YamFries())
+                self.order.append(YamFries('Small'))
+                return "yam"
             else:
-                self.order.append(RegularFries())
+                self.order.append(RegularFries('Small'))
+                return "fries"
         else:
+            self.state = "menu_items"
             self.say("Let me get my manager to help you")
 
 
+
     def add_to_item(self, input):
+        if "no" in input:
+            self.state = "removals"
+            self.prompt_for_removal()
+            return
+        item = self.order[-1]
+        ingredient = (ingredient for ingredient in item.ingredients if ingredient in input)
+        item.additions.append(ingredient)
+        self.say("anything else?")
         return
 
     def remove_from_item(self, input):
+        if "no" in input:
+            self.state = "is that all"
+            self.prompt_for_end_order()
+            return
+        item = self.order[-1]
+        ingredient = (ingredient for ingredient in item.ingredients if ingredient in input)
+        item.removals.append(ingredient)
+        self.say("anything else?")
         return
 
     def order_complete(self, input):
-        self.farewell()
-        del self
+        if "yes" in input:
+            self.farewell()
+            del self
         return
 
     def confirm_order(self):
@@ -83,6 +116,8 @@ class Order:
     def say(self, string):
         print(string)
 
-order()
-Order.input("hello")
-Burger("small")
+order = Order()
+order.input("burger")
+order.input("no")
+order.input("no")
+order.input("yes")
