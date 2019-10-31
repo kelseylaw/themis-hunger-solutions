@@ -22,6 +22,19 @@ response_affirmative = [
     "yeah",
 ]
 
+response_hostile = [
+    "bad",
+    "darn",
+    "horrible",
+    "manager",
+    "shut up",
+    "supervisor"
+    "oh my god",
+    "terrible",
+    "this isn't working",
+    "what the heck",
+]
+
 response_with = [
     "add",
     "extra",
