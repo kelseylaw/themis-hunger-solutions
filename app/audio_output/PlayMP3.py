@@ -9,6 +9,7 @@ class PlayMP3:
 
         pygame.init()
         pygame.mixer.init()
+        pygame.mixer.music.set_endevent(1)
         pygame.mixer.music.load(file)
         pygame.mixer.music.play()
         pygame.event.wait()
