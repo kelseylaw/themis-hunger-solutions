@@ -134,9 +134,9 @@ class Order:
             removals = 0
             for removal in item.removals:
                 if removals == 0:
-                    order += " with " + addition
+                    order += " with " + removal
                 if removals > 0:
-                    order += " and " + addition
+                    order += " and " + removal
                 removals += 1
         self.say(order)
 
