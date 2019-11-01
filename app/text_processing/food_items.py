@@ -54,9 +54,9 @@ class Burger:
         print("ADD-ONS:")
         for addon in cls.possible_ingredients.keys():
             if "patty" in addon:
-                print("\t" + addon.upper() + "\t\t$" + str(cls.possible_ingredients.get(addon)))
-            else:
                 print("\t" + addon.upper() + "\t\t\t$" + str(cls.possible_ingredients.get(addon)))
+            else:
+                print("\t" + addon.upper() + "\t\t\t\t$" + str(cls.possible_ingredients.get(addon)))
 
     def upsell(self):
         if self.name == "veggie burger":
@@ -114,9 +114,17 @@ class Burger:
         print(self.size.upper() + " " + self.name.upper() + "\t\t\t$" + str(self.get_price()))
         for addition in self.additions:
             if addition in self.ingredients:
-                print("\t - Extra " + addition.title() + "\t\t\t+$" + str(self.get_additions_price(addition)))
+                title = "\t - Extra " + addition.title()
+                if len(title) > 13:
+                    print("\t - Extra " + addition.title() + "\t\t+$" + str(self.get_additions_price(addition)))
+                else:
+                    print("\t - Extra " + addition.title() + "\t\t\t+$" + str(self.get_additions_price(addition)))
             else:
-                print("\t - Add " + addition.title() + "\t\t\t+$" + str(self.get_additions_price(addition)))
+                title = "\t - Add " + addition.title()
+                if len(title) > 13:
+                    print("\t - Add " + addition.title() + "\t\t+$" + str(self.get_additions_price(addition)))
+                else:
+                    print("\t - Add " + addition.title() + "\t\t\t+$" + str(self.get_additions_price(addition)))
         for removal in self.removals:
             print("\t - No " + removal.title())
 
@@ -152,7 +160,7 @@ class Fries:
     type_options = ["regular", "yam", "curly"]
     size_options = ["small", "medium", "large"]
     possible_ingredients = {
-        "salt": 0,
+        "salt": 0.10,
         "gravy": 1,
         "cheese curds": 1,
         "ketchup": 0
@@ -181,7 +189,6 @@ class Fries:
 
     @classmethod
     def print_menu(cls):
-        print("WELCOME TO THEMIS HUNGER SOLUTIONS! I'M HENRY, HERE'S YOUR MENU:\n")
         print("FRIES:")
         print("\tREGULAR FRIES\t\t\t$3.49")
         print("\tYAM FRIES\t\t\t$6.49")
@@ -189,9 +196,9 @@ class Fries:
         print("ADD-ONS:")
         for addon in cls.possible_ingredients.keys():
             if "curds" in addon:
-                print("\t" + addon.upper() + "\t\t$" + str(cls.possible_ingredients.get(addon)))
-            else:
                 print("\t" + addon.upper() + "\t\t\t$" + str(cls.possible_ingredients.get(addon)))
+            else:
+                print("\t" + addon.upper() + "\t\t\t\t$" + str(cls.possible_ingredients.get(addon)))
 
     def upsell(self):
         if self.name == "regular fries" and ["cheese curds", "gravy"] not in self.additions:
@@ -250,8 +257,6 @@ class Fries:
             self.removals.append(ingredient)
             if len(self.removals) == 1:
                 print("OK! I got rid of that from your fries.")
-        else:
-            print("What the fries! I can't remove that!")
 
     def print_order(self):
         print(self.size.upper() + " " + self.name.upper() + "\t\t\t$" + str(self.get_price()))
