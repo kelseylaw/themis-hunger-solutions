@@ -31,6 +31,7 @@ class Order:
 
     def greet(self):
         print("\n\n")
+        print("-----------------------------------\n")
         Burger.print_menu()
         Fries.print_menu()
         self.speak.playMP3("greet")
@@ -205,7 +206,7 @@ class Order:
             sub_total += order.get_price()
         sub_total = round(sub_total, 2)
         tax = round(sub_total * 0.05, 2)
-        total = sub_total + tax
+        total = round(sub_total + tax, 2)
 
         print("\n\t\t\t\t\tSUBTOTAL: $" + str(sub_total))
         print("\t\t\t\t\tTAX: $" + str(tax))
