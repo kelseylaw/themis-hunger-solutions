@@ -102,7 +102,7 @@ class Order:
                 item.add_addition(ingredient)
                 additional_item = True
         # self.say("anything else?")
-        if addition_item:
+        if additional_item:
             self.speak.playMP3("anything_else") ## KELSEY & JULIEN
         return
 
