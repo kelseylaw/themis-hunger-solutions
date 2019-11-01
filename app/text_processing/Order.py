@@ -68,8 +68,8 @@ class Order:
                 self.order.append(ChickenBurger('single'))
                 return "Chicken Burger"
             else:
-                self.order.append(BeefBurger('single'))
-                return "Beef Burger"
+                self.order.append(CheeseBurger('single'))
+                return "Cheese Burger"
         elif "fries" in input:
             if "curly" in input:
                 self.order.append(CurlyFries('small'))

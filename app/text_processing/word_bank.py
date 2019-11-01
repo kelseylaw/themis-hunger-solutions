@@ -2,7 +2,7 @@ import re
 import random
 
 food_items = [
-    "burger",
+    "cheeseburger",
     "chicken burger",
     "veggie burger",
     "fries",
