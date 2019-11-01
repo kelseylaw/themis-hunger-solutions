@@ -64,7 +64,7 @@ class Order:
         self.prompt_for_addition()
 
     def add_item_to_order(self, input):
-        state = "additions"
+        self.state = "additions"
         if "burger" in input:
             if "veggie" in input:
                 self.order.append(VeggieBurger('single'))
@@ -96,7 +96,7 @@ class Order:
             self.prompt_for_removal()
             return
         item = self.order[-1]
-        addition_item = False
+        additional_item = False
         for ingredient in item.possible_ingredients:
             if ingredient in input:
                 item.add_addition(ingredient)
