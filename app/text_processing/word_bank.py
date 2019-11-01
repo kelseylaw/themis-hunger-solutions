@@ -1,8 +1,17 @@
+import random
+
 food_items = [
     "Burger",
     "Chicken Burger",
     "Veggie Burger",
     "Fries",
+]
+
+positive_confirmation = [
+    "absolutely",
+    "great_choice",
+    "okay",
+    "sure",
 ]
 
 response_negative = [
@@ -60,6 +69,10 @@ response_without = [
     "take out",
     "without",
 ]
+
+def random_confirmation():
+    num = random.randrange(len(positive_confirmation))
+    return positive_confirmation[num]
 
 def search_without(input):
     for without in response_without:
