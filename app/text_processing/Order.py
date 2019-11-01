@@ -211,3 +211,5 @@ class Order:
         print("\n\t\t\t\t\tSUBTOTAL: $" + str(sub_total))
         print("\t\t\t\t\tTAX: $" + str(tax))
         print("\t\t\t\t\tTOTAL: $" + str(total))
+        final_comment = "Your total comes to ${}".format(str(total))
+        self.text_to_speech.textToSpeech(final_comment, "total")
