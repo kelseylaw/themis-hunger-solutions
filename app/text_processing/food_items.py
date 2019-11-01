@@ -1,3 +1,10 @@
+import sys
+
+sys.path.insert(1, "app/audio_output")
+
+import PlayMP3
+import TextToSpeech
+
 class Burger:
     type_options = ["beef", "chicken", "veggie"]
     size_options = ["single", "double"]
@@ -38,7 +45,7 @@ class Burger:
         return size in Burger.size_options
 
     @classmethod
-    def print_burger_menu(cls):
+    def print_menu(cls):
         print("WELCOME TO THEMIS HUNGER SOLUTIONS! I'M HENRY, HERE'S YOUR MENU:\n")
         print("BURGERS:")
         print("\tCHEESEBURGER\t\t\t$7.99")
@@ -148,7 +155,6 @@ class Fries:
         "salt": 0,
         "gravy": 1,
         "cheese curds": 1,
-        "poutine": 2,
         "ketchup": 0
     }
 
@@ -172,6 +178,20 @@ class Fries:
     @classmethod
     def is_valid_size(size):
         return size in Fries.size_options
+
+    @classmethod
+    def print_menu(cls):
+        print("WELCOME TO THEMIS HUNGER SOLUTIONS! I'M HENRY, HERE'S YOUR MENU:\n")
+        print("FRIES:")
+        print("\tREGULAR FRIES\t\t\t$3.49")
+        print("\tYAM FRIES\t\t\t$6.49")
+        print("\tCURLY FRIES\t\t\t$4.49")
+        print("ADD-ONS:")
+        for addon in cls.possible_ingredients.keys():
+            if "curds" in addon:
+                print("\t" + addon.upper() + "\t\t$" + str(cls.possible_ingredients.get(addon)))
+            else:
+                print("\t" + addon.upper() + "\t\t\t$" + str(cls.possible_ingredients.get(addon)))
 
     def upsell(self):
         if self.name == "regular fries" and ["cheese curds", "gravy"] not in self.additions:
@@ -206,13 +226,13 @@ class Fries:
         if ingredient in self.additions:
             print("You've already added that extra ingredient to the fries! Do you really need that much more?")
         elif ingredient in Fries.possible_ingredients.keys():
-            if (ingredient == "poutine" or ingredient == "gravy") and "cheese curds" in self.additions:
+            if ingredient == "gravy" and "cheese curds" in self.additions:
                 self.additions.remove("cheese curds")
-                self.additions.append(ingredient)
+                self.additions.append("poutine")
                 print("I'll make it a poutine, eh?")
-            elif (ingredient == "poutine" or ingredient == "cheese curds") and "gravy" in self.additions:
+            elif ingredient == "cheese curds" and "gravy" in self.additions:
                 self.additions.remove("gravy")
-                self.additions.append(ingredient)
+                self.additions.append("poutine")
                 print("I'll make it a poutine, eh?")
             elif (ingredient == "gravy" or ingredient == "cheese curds") and "poutine" in self.additions:
                 print("You've already made a poutine!")
@@ -238,6 +258,8 @@ class Fries:
         for addition in self.additions:
             if addition in self.ingredients:
                 print("\t - Extra " + addition.title() + "\t\t\t+$" + str(self.get_additions_price(addition)))
+            elif addition == "poutine":
+                print("\t - Add " + addition.title() + "\t\t\t+$2")
             else:
                 print("\t - Add " + addition.title() + "\t\t\t+$" + str(self.get_additions_price(addition)))
         for removal in self.removals:

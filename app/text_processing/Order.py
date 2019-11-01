@@ -33,7 +33,9 @@ class Order:
             self.get_manager
 
     def greet(self):
-        Burger.print_burger_menu()
+        Burger.print_menu()
+        print("\n")
+        Fries.print_menu()
         self.speak.playMP3("greet")
         self.state = "menu_item"
         print("\nYOUR ORDER:\n")
