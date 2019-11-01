@@ -5,6 +5,8 @@ food_items = [
     "cheeseburger",
     "chicken burger",
     "veggie burger",
+    "yam fries"
+    "curly fries"
     "fries",
 ]
 
