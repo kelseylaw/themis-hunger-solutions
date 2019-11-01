@@ -114,7 +114,6 @@ class Order:
                 item.add_addition(ingredient)
                 additional_item = True
         if additional_item:
-            self.random_confirmation()
             self.prompt_for_additional_addition()
         return
 
@@ -131,7 +130,6 @@ class Order:
                 item.add_removal(ingredient)
                 removed_item = True
         if removed_item:
-            self.random_confirmation()
             self.prompt_for_additional_removal()
         return
 

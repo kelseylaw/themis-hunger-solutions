@@ -179,6 +179,7 @@ class Fries:
         self.ingredients = []
         self.removals = []
         self.additions = []
+        self.speak = PlayMP3.PlayMP3()
         if size in self.size_options:
             self.size = size
         else:
@@ -248,7 +249,7 @@ class Fries:
                 self.additions.remove("gravy")
                 self.additions.append(ingredient)
                 # print("I'll make it a poutine, eh?")
-            elif (ingredient == "gravy" or ingredient == "cheese curds") and "poutine" in self.additions:
+            # elif (ingredient == "gravy" or ingredient == "cheese curds") and "poutine" in self.additions:
                 # print("You've already made a poutine!")
             else:
                 self.additions.append(ingredient)
