@@ -35,7 +35,6 @@ class Order:
         self.speak.playMP3("greet")
         self.state = "menu_item"
         print("-----------------------------------\n")
-        print("\nYOUR ORDER:\n")
 
     def prompt_for_menu_item(self):
         self.speak.playMP3("prompt_for_menu_item")
@@ -107,8 +106,10 @@ class Order:
         return
 
     def confirm_order(self):
+        print("\nYOUR ORDER:\n")
         order = ""
         for item in self.order:
+            item.print_order()
             order += (" " + item.name)
             additions = 0
             for addition in item.additions:
@@ -204,6 +205,6 @@ class Order:
         tax = round(sub_total * 0.05, 2)
         total = sub_total + tax
 
-        print("\n\t\t\t\t\t\tSUBTOTAL: $" + str(sub_total))
-        print("\t\t\t\t\t\tTAX: $" + str(tax))
-        print("\t\t\t\t\t\tTOTAL: $" + str(total))
+        print("\n\t\t\t\t\tSUBTOTAL: $" + str(sub_total))
+        print("\t\t\t\t\tTAX: $" + str(tax))
+        print("\t\t\t\t\tTOTAL: $" + str(total))

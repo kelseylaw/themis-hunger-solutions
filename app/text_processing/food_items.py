@@ -3,7 +3,7 @@ sys.path.insert(1, "app/audio_output")
 import PlayMP3
 
 class Burger:
-    type_options = ["beef", "chicken", "veggie"]
+    type_options = ["cheeseburger", "chicken", "veggie"]
     size_options = ["single", "double"]
     possible_ingredients = {
         "beef patty": 1.5,
@@ -134,10 +134,10 @@ class Burger:
             print("\t - No " + removal.title())
 
 
-class BeefBurger(Burger):
+class Cheeseburger(Burger):
     def __init__(self, size):
         super().__init__(size)
-        self.name = "beef burger"
+        self.name = "cheeseburger"
         self.prices = { "single": 7.99, "double": 8.99 }
         self.ingredients = ["bun", "beef patty", "cheese", "lettuce", "tomato", "ketchup", "mustard", "pickles",  "onions"]
         self.set_price()
