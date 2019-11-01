@@ -83,22 +83,16 @@ class Order:
 
     def add_to_item(self, input):
         item = self.order[-1]
-        additional_item = False
         for ingredient in item.possible_ingredients:
             if ingredient in input:
                 item.add_addition(ingredient)
-                additional_item = True
         return
 
     def remove_from_item(self, input):
         item = self.order[-1]
-        removed_item = False
         for ingredient in item.possible_ingredients:
             if ingredient in input:
                 item.add_removal(ingredient)
-                removed_item = True
-        if removed_item is False:
-            self.speak.playMP3("anything_else")
         return
 
     def order_complete(self, input):
