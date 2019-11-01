@@ -64,7 +64,7 @@ class Order:
         self.prompt_for_addition()
 
     def add_item_to_order(self, input):
-
+        state = "additions"
         if "burger" in input:
             if "veggie" in input:
                 self.order.append(VeggieBurger('single'))
@@ -88,7 +88,7 @@ class Order:
         else:
             self.state = "menu_items"
             # self.say("Let me get my manager to help you")
-            self.speak("get_manager")
+            self.speak.playMP3("get_manager")
 
     def add_to_item(self, input):
         if search_negative(input):
