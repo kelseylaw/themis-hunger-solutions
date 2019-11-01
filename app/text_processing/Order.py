@@ -156,6 +156,10 @@ class Order:
                 self.confirm_order()
                 self.speak.playMP3("prompt_for_end_order")
                 return
+            elif search_affirmative(input):
+                self.speak.playMP3("prompt_for_menu_item")
+                return
+
         self.speak.playMP3("anything_else")
 
     def director(self, location, directors):
