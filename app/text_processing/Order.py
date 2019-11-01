@@ -68,23 +68,23 @@ class Order:
 
         if "burger" in input:
             if "veggie" in input:
-                self.order.append(VeggieBurger('Single'))
+                self.order.append(VeggieBurger('single'))
                 return "Veggie Burger"
             if "chicken" in input:
-                self.order.append(ChickenBurger('Single'))
+                self.order.append(ChickenBurger('single'))
                 return "Chicken Burger"
             else:
-                self.order.append(BeefBurger('Single'))
+                self.order.append(BeefBurger('single'))
                 return "Beef Burger"
         elif "fries" in input:
             if "curly" in input:
-                self.order.append(CurlyFries('Small'))
+                self.order.append(CurlyFries('small'))
                 return "curly fries"
             if "yam" in input:
-                self.order.append(YamFries('Small'))
+                self.order.append(YamFries('small'))
                 return "yam"
             else:
-                self.order.append(RegularFries('Small'))
+                self.order.append(RegularFries('small'))
                 return "fries"
         else:
             self.state = "menu_items"
