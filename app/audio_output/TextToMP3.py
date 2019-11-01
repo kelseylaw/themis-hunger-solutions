@@ -33,4 +33,4 @@ class TextToMP3:
         with open("{}.mp3".format(fileName), 'wb') as out:
             # Write the response to the output file.
             out.write(response.audio_content)
-            print('Audio content written to file "{}.mp3"'.format(fileName))
+            # print('Audio content written to file "{}.mp3"'.format(fileName))

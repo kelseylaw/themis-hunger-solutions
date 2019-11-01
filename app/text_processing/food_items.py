@@ -51,7 +51,6 @@ class Burger:
         return self.name
 
     def get_size(self):
-        print(self.size)
         return self.size
 
     def set_price(self):

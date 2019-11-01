@@ -31,7 +31,6 @@ class Order:
         else:
             self.get_manager
 
-
     def greet(self):
         self.speak.playMP3("greet")
         self.state = "menu_item"
@@ -42,8 +41,14 @@ class Order:
     def prompt_for_addition(self):
         self.speak.playMP3("prompt_for_addition")
 
+    def prompt_for_additional_addition(self):
+        self.speak.playMP3("prompt_for_additional_addition")
+
     def prompt_for_removal(self):
         self.speak.playMP3("prompt_for_removal")
+
+    def prompt_for_additional_removal(self):
+        self.speak.playMP3("prompt_for_additional_removal")
 
     def prompt_for_end_order(self):
         self.confirm_order()
@@ -56,7 +61,7 @@ class Order:
         self.speak.playMP3("{}".format(random_confirmation()))
 
     def try_to_add_item(self, input):
-        self.say(self.add_item_to_order(input))
+        self.add_item_to_order(input)
         self.prompt_for_addition()
 
     def add_item_to_order(self, input):
@@ -72,6 +77,7 @@ class Order:
                 return "Chicken Burger"
             else:
                 self.order.append(BeefBurger('single'))
+                self.random_confirmation()
                 return "Beef Burger"
         elif "fries" in input:
             if "curly" in input:
@@ -84,6 +90,7 @@ class Order:
                 return "yam"
             else:
                 self.order.append(RegularFries('small'))
+                self.random_confirmation()
                 return "fries"
         else:
             self.state = "menu_items"
@@ -101,7 +108,8 @@ class Order:
                 item.add_addition(ingredient)
                 additional_item = True
         if additional_item:
-            self.speak.playMP3("prompt_for_addition")
+            self.random_confirmation()
+            self.prompt_for_additional_addition()
         return
 
     def remove_from_item(self, input):
@@ -116,7 +124,8 @@ class Order:
                 item.add_removal(ingredient)
                 removed_item = True
         if removed_item:
-            self.speak.playMP3("anything_else")
+            self.random_confirmation()
+            self.prompt_for_additional_removal()
         return
 
     def order_complete(self, input):
