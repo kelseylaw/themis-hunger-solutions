@@ -1,10 +1,11 @@
+import re
 import random
 
 food_items = [
-    "Burger",
-    "Chicken Burger",
-    "Veggie Burger",
-    "Fries",
+    "burger",
+    "chicken burger",
+    "veggie burger",
+    "fries",
 ]
 
 positive_confirmation = [
@@ -14,6 +15,24 @@ positive_confirmation = [
     "sure",
 ]
 
+food_ingredients = [
+    "beef patty",
+    "chicken patty",
+    "veggie patty",
+    "bacon",
+    "cheese",
+    "lettuce",
+    "tomato",
+    "ketchup",
+    "mayo",
+    "mustard",
+    "pickles",
+    "onions",
+    "peppers",
+    "salt",
+    "gravy",
+    "ketchup"
+]
 response_negative = [
     "no",
     "nope",
@@ -59,13 +78,13 @@ response_with = [
     "extra",
     "include",
     "including",
-    "on",
-    "over",
+    " on",
+    " over",
     "with",
 ]
 
 response_without = [
-    "no",
+    " no",
     "take out",
     "without",
 ]
@@ -110,4 +129,31 @@ def search_food_item(input):
             return True
     return False
 
+def all_food_items(input):
+    results = []
+    for item in food_items:
+        for m in re.finditer(item, input):
+            results.append(m)
+    return results
+
+def all_ingredients(input):
+    results = []
+    for ingredient in food_ingredients:
+        for m in re.finditer(ingredient, input):
+            results.append(m)
+    return results
+
+def all_with(input):
+    results = []
+    for item in response_with:
+        for m in re.finditer(item, input):
+            results.append(m)
+    return results
+
+def all_without(input):
+    results = []
+    for item in response_without:
+        for m in re.finditer(item, input):
+            results.append(m)
+    return results
 
