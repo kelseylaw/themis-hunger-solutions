@@ -1,9 +1,6 @@
 import sys
-
 sys.path.insert(1, "app/audio_output")
-
 import PlayMP3
-import TextToSpeech
 
 class Burger:
     type_options = ["beef", "chicken", "veggie"]
@@ -31,10 +28,12 @@ class Burger:
         self.ingredients = []
         self.removals = []
         self.additions = []
+        self.speak = PlayMP3.PlayMP3()
         if size in self.size_options:
             self.size = size
         else:
-            print("Oh no! That's not a valid size for this burger!")
+            self.speak.playMP3("confirm_invalid_size")
+            # print("Oh no! That's not a valid size for this burger!")
 
     @classmethod
     def is_valid_type(size):
@@ -91,24 +90,30 @@ class Burger:
 
     def add_addition(self, ingredient):
         if ingredient in self.additions:
-            print("You've already added that extra ingredient to the burger! Do you really need that much more?")
+            self.speak.playMP3("confirm_already_added")
+            # print("You've already added that extra ingredient to the burger! Do you really need that much more?")
         elif ingredient in Burger.possible_ingredients.keys():
             self.additions.append(ingredient)
             self.set_price()
             if len(self.additions) == 1:
-                print("Sweet! I added that to your burger.")
+                self.speak.playMP3("confirm_addition")
+                # print("Sweet! I added that to your burger.")
         else:
-            print("What the fries! I can't add that to the burger!")
+            self.speak.playMP3("confirm_not_valid")
+            # print("What the fries! I can't add that to the burger!")
 
     def add_removal(self, ingredient):
         if ingredient in self.removals:
-            print("Darn! You've already removed that from the burger!")
+            self.speak.playMP3("confirm_already_removed")
+            # print("Darn! You've already removed that from the burger!")
         elif ingredient in self.ingredients:
             self.removals.append(ingredient)
             if len(self.removals) == 1:
-                print("Cool beans! I got rid of that from your burger.")
+                self.speak.playMP3("confirm_removal")
+                # print("Cool beans! I got rid of that from your burger.")
         else:
-            print("What the fries! I can't remove that!")
+            self.speak.playMP3("confirm_not_valid")
+            # print("What the fries! I can't remove that!")
 
     def print_order(self):
         print(self.size.upper() + " " + self.name.upper() + "\t\t\t$" + str(self.get_price()))
@@ -177,7 +182,8 @@ class Fries:
         if size in self.size_options:
             self.size = size
         else:
-            print("Oh no! That's not a valid size for the fries!")
+            self.speak.playMP3("confirm_invalid_size")
+            # print("Oh no! That's not a valid size for the fries!")
 
     @classmethod
     def is_valid_type(size):
@@ -231,32 +237,40 @@ class Fries:
 
     def add_addition(self, ingredient):
         if ingredient in self.additions:
-            print("You've already added that extra ingredient to the fries! Do you really need that much more?")
+            self.speak.playMP3("confirm_already_added")
+            # print("You've already added that extra ingredient to the fries! Do you really need that much more?")
         elif ingredient in Fries.possible_ingredients.keys():
             if ingredient == "gravy" and "cheese curds" in self.additions:
                 self.additions.remove("cheese curds")
-                self.additions.append("poutine")
-                print("I'll make it a poutine, eh?")
-            elif ingredient == "cheese curds" and "gravy" in self.additions:
+                self.additions.append(ingredient)
+                # print("I'll make it a poutine, eh?")
+            elif (ingredient == "poutine" or ingredient == "cheese curds") and "gravy" in self.additions:
                 self.additions.remove("gravy")
-                self.additions.append("poutine")
-                print("I'll make it a poutine, eh?")
+                self.additions.append(ingredient)
+                # print("I'll make it a poutine, eh?")
             elif (ingredient == "gravy" or ingredient == "cheese curds") and "poutine" in self.additions:
-                print("You've already made a poutine!")
+                # print("You've already made a poutine!")
             else:
                 self.additions.append(ingredient)
                 if len(self.additions) == 1:
-                    print("Awesome! I added that to your fries.")
+                    self.speak.playMP3("confirm_addition")
+                    # print("Awesome! I added that to your fries.")
         else:
-            print("What the fries! I can't add that to your fries!")
+            self.speak.playMP3("confirm_not_valid")
+            # print("What the fries! I can't add that to your fries!")
 
     def add_removal(self, ingredient):
         if ingredient in self.removals:
-            print("Darn! You've already removed that from the fries!")
+            self.speak.playMP3("confirm_already_removed")
+            # print("Darn! You've already removed that from the fries!")
         elif ingredient in self.ingredients:
             self.removals.append(ingredient)
             if len(self.removals) == 1:
-                print("OK! I got rid of that from your fries.")
+                self.speak.playMP3("confirm_removal")
+                # print("OK! I got rid of that from your fries.")
+        else:
+            self.speak.playMP3("confirm_not_valid")
+            # print("What the fries! I can't remove that!")
 
     def print_order(self):
         print(self.size.upper() + " " + self.name.upper() + "\t\t\t$" + str(self.get_price()))
