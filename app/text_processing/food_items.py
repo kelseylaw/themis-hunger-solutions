@@ -33,7 +33,6 @@ class Burger:
             self.size = size
         else:
             self.speak.playMP3("confirm_invalid_size")
-            # print("Oh no! That's not a valid size for this burger!")
 
     @classmethod
     def is_valid_type(size):
@@ -91,29 +90,19 @@ class Burger:
     def add_addition(self, ingredient):
         if ingredient in self.additions:
             self.speak.playMP3("confirm_already_added")
-            # print("You've already added that extra ingredient to the burger! Do you really need that much more?")
         elif ingredient in Burger.possible_ingredients.keys():
             self.additions.append(ingredient)
             self.set_price()
-            if len(self.additions) == 1:
-                self.speak.playMP3("confirm_addition")
-                # print("Sweet! I added that to your burger.")
         else:
             self.speak.playMP3("confirm_not_valid")
-            # print("What the fries! I can't add that to the burger!")
 
     def add_removal(self, ingredient):
         if ingredient in self.removals:
             self.speak.playMP3("confirm_already_removed")
-            # print("Darn! You've already removed that from the burger!")
         elif ingredient in self.ingredients:
             self.removals.append(ingredient)
-            if len(self.removals) == 1:
-                self.speak.playMP3("confirm_removal")
-                # print("Cool beans! I got rid of that from your burger.")
         else:
             self.speak.playMP3("confirm_not_valid")
-            # print("What the fries! I can't remove that!")
 
     def print_order(self):
         print(self.size.upper() + " " + self.name.upper() + "\t\t\t$" + str(self.get_price()))
@@ -184,7 +173,6 @@ class Fries:
             self.size = size
         else:
             self.speak.playMP3("confirm_invalid_size")
-            # print("Oh no! That's not a valid size for the fries!")
 
     @classmethod
     def is_valid_type(size):
@@ -239,39 +227,25 @@ class Fries:
     def add_addition(self, ingredient):
         if ingredient in self.additions:
             self.speak.playMP3("confirm_already_added")
-            # print("You've already added that extra ingredient to the fries! Do you really need that much more?")
         elif ingredient in Fries.possible_ingredients.keys():
             if ingredient == "gravy" and "cheese curds" in self.additions:
                 self.additions.remove("cheese curds")
                 self.additions.append(ingredient)
-                # print("I'll make it a poutine, eh?")
             elif (ingredient == "poutine" or ingredient == "cheese curds") and "gravy" in self.additions:
                 self.additions.remove("gravy")
                 self.additions.append(ingredient)
-                # print("I'll make it a poutine, eh?")
-            # elif (ingredient == "gravy" or ingredient == "cheese curds") and "poutine" in self.additions:
-                # print("You've already made a poutine!")
             else:
                 self.additions.append(ingredient)
-                if len(self.additions) == 1:
-                    self.speak.playMP3("confirm_addition")
-                    # print("Awesome! I added that to your fries.")
         else:
             self.speak.playMP3("confirm_not_valid")
-            # print("What the fries! I can't add that to your fries!")
 
     def add_removal(self, ingredient):
         if ingredient in self.removals:
             self.speak.playMP3("confirm_already_removed")
-            # print("Darn! You've already removed that from the fries!")
         elif ingredient in self.ingredients:
             self.removals.append(ingredient)
-            if len(self.removals) == 1:
-                self.speak.playMP3("confirm_removal")
-                # print("OK! I got rid of that from your fries.")
         else:
             self.speak.playMP3("confirm_not_valid")
-            # print("What the fries! I can't remove that!")
 
     def print_order(self):
         print(self.size.upper() + " " + self.name.upper() + "\t\t\t$" + str(self.get_price()))

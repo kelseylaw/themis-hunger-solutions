@@ -106,6 +106,7 @@ class Order:
         return
 
     def confirm_order(self):
+        self.random_confirmation()
         print("\nYOUR ORDER:\n")
         order = ""
         for item in self.order:
