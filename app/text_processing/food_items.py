@@ -38,7 +38,14 @@ class Burger:
         return size in Burger.size_options
 
     def upsell(self):
-        return ("bacon", 1)
+        if self.name == "veggie burger":
+            return ("veggie patty", 1.5)
+        elif "bacon" not in self.additions:
+            return ("bacon", 1)
+        elif "cheese" not in self.additions:
+            return ("cheese", 1)
+        else:
+            return ("beef patty", 1.5)
 
     def get_name(self):
         return self.name
@@ -123,6 +130,7 @@ class Fries:
     possible_ingredients = {
         "salt": 0,
         "gravy": 1,
+        "cheese curds": 1,
         "ketchup": 0
     }
 
