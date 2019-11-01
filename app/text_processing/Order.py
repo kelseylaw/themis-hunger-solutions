@@ -68,7 +68,7 @@ class Order:
                 self.order.append(ChickenBurger('single'))
                 return "Chicken Burger"
             else:
-                self.order.append(CheeseBurger('single'))
+                self.order.append(Cheeseburger('single'))
                 return "Cheese Burger"
         elif "fries" in input:
             if "curly" in input:
@@ -150,9 +150,11 @@ class Order:
                     j += 1
                 i += 1
         else:
-            self.state = "is that all"
-            self.confirm_order()
-            return
+            if search_negative(input):
+                self.state = "is that all"
+                self.confirm_order()
+                self.speak.playMP3("prompt_for_end_order")
+                return
         self.speak.playMP3("anything_else")
 
     def director(self, location, directors):
