@@ -75,6 +75,9 @@ response_hostile = [
     "terrible",
     "this isn't working",
     "what the heck",
+    "what the fries",
+    "mother clucker",
+    "fork",
 ]
 
 response_with = [

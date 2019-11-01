@@ -90,7 +90,7 @@ class Burger:
     def add_addition(self, ingredient):
         # if ingredient in self.additions:
         #     self.speak.playMP3("confirm_already_added")
-        if ingredient in Burger.possible_ingredients.keys():
+        if ingredient in Burger.possible_ingredients.keys() and ingredient not in self.additions:
             self.additions.append(ingredient)
             self.set_price()
         # else:
@@ -99,7 +99,7 @@ class Burger:
     def add_removal(self, ingredient):
         # if ingredient in self.removals:
         #     self.speak.playMP3("confirm_already_removed")
-        if ingredient in self.ingredients:
+        if ingredient in self.ingredients and ingredient not in self.removals:
             self.removals.append(ingredient)
         # else:
         #     self.speak.playMP3("confirm_not_valid")
@@ -156,7 +156,7 @@ class Fries:
     possible_ingredients = {
         "salt": 0.10,
         "gravy": 1,
-        "cheese curds": 1,
+        "cheese": 1,
         "ketchup": 0
     }
 
@@ -190,17 +190,14 @@ class Fries:
         print("\tCURLY FRIES\t\t\t$4.49")
         print("ADD-ONS:")
         for addon in cls.possible_ingredients.keys():
-            if "curds" in addon:
-                print("\t" + addon.upper() + "\t\t\t$" + str(cls.possible_ingredients.get(addon)))
-            else:
-                print("\t" + addon.upper() + "\t\t\t\t$" + str(cls.possible_ingredients.get(addon)))
+            print("\t" + addon.upper() + "\t\t\t\t$" + str(cls.possible_ingredients.get(addon)))
 
     def upsell(self):
-        if self.name == "regular fries" and ["cheese curds", "gravy"] not in self.additions:
+        if self.name == "regular fries" and ["cheese", "gravy"] not in self.additions:
             return ("poutine", 2)
         elif "gravy" not in self.additions:
-            return ("cheese curds", 1)
-        elif "cheese curds" not in self.additions:
+            return ("cheese", 1)
+        elif "cheese" not in self.additions:
             return ("gravy", 1)
         else:
             return ("ketchup", 0)
@@ -227,13 +224,13 @@ class Fries:
     def add_addition(self, ingredient):
         # if ingredient in self.additions:
         #     self.speak.playMP3("confirm_already_added")
-        if ingredient in Fries.possible_ingredients.keys():
-            if ingredient == "gravy" and "cheese curds" in self.additions:
-                self.additions.remove("cheese curds")
-                self.additions.append(ingredient)
-            elif (ingredient == "poutine" or ingredient == "cheese curds") and "gravy" in self.additions:
+        if ingredient in Fries.possible_ingredients.keys() and ingredient not in self.additions:
+            if ingredient == "gravy" and "cheese" in self.additions:
+                self.additions.remove("cheese")
+                self.additions.append("poutine")
+            elif ingredient == "cheese" and "gravy" in self.additions:
                 self.additions.remove("gravy")
-                self.additions.append(ingredient)
+                self.additions.append("poutine")
             else:
                 self.additions.append(ingredient)
         # else:
@@ -242,7 +239,7 @@ class Fries:
     def add_removal(self, ingredient):
         # if ingredient in self.removals:
         #     self.speak.playMP3("confirm_already_removed")
-        if ingredient in self.ingredients:
+        if ingredient in self.ingredients and ingredient not in self.removals:
             self.removals.append(ingredient)
         # else:
         #     self.speak.playMP3("confirm_not_valid")
