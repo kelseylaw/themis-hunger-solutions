@@ -29,11 +29,12 @@ class Order:
             self.get_manager
 
     def greet(self):
+        print("\n\n")
         Burger.print_menu()
-        print("\n")
         Fries.print_menu()
         self.speak.playMP3("greet")
         self.state = "menu_item"
+        print("-----------------------------------\n")
         print("\nYOUR ORDER:\n")
 
     def prompt_for_menu_item(self):
@@ -97,6 +98,7 @@ class Order:
 
     def order_complete(self, input):
         if search_affirmative(input):
+            self.print_order_total()
             self.farewell()
             sys.exit()
         elif search_negative(input):
@@ -193,3 +195,15 @@ class Order:
 
     def say(self, string):
         print(string)
+
+    def print_order_total(self):
+        sub_total = 0
+        for order in self.order:
+            sub_total += order.get_price()
+        sub_total = round(sub_total, 2)
+        tax = round(sub_total * 0.05, 2)
+        total = sub_total + tax
+
+        print("\n\t\t\t\t\t\tSUBTOTAL: $" + str(sub_total))
+        print("\t\t\t\t\t\tTAX: $" + str(tax))
+        print("\t\t\t\t\t\tTOTAL: $" + str(total))
