@@ -22,11 +22,7 @@ class Order:
         elif self.state == "greet":
             self.state = "menu_item"
         elif self.state == "menu_item":
-            self.try_to_add_item(input)
-        elif self.state == "additions":
-            self.add_to_item(input)
-        elif self.state == "removals":
-            self.remove_from_item(input)
+            self.order_food(input)
         elif self.state == "is that all":
             self.order_complete(input)
         else:
@@ -46,14 +42,8 @@ class Order:
     def prompt_for_addition(self):
         self.speak.playMP3("prompt_for_addition")
 
-    def prompt_for_additional_addition(self):
-        self.speak.playMP3("prompt_for_additional_addition")
-
     def prompt_for_removal(self):
         self.speak.playMP3("prompt_for_removal")
-
-    def prompt_for_additional_removal(self):
-        self.speak.playMP3("prompt_for_additional_removal")
 
     def prompt_for_end_order(self):
         self.confirm_order()
@@ -70,74 +60,54 @@ class Order:
         self.prompt_for_addition()
 
     def add_item_to_order(self, input):
-        self.state = "additions"
         if "burger" in input:
             if "veggie" in input:
                 self.order.append(VeggieBurger('single'))
-                self.random_confirmation()
                 return "Veggie Burger"
             if "chicken" in input:
                 self.order.append(ChickenBurger('single'))
-                self.random_confirmation()
                 return "Chicken Burger"
             else:
                 self.order.append(BeefBurger('single'))
-                self.random_confirmation()
                 return "Beef Burger"
         elif "fries" in input:
             if "curly" in input:
                 self.order.append(CurlyFries('small'))
-                self.random_confirmation()
                 return "curly fries"
             if "yam" in input:
                 self.order.append(YamFries('small'))
-                self.random_confirmation()
                 return "yam"
             else:
                 self.order.append(RegularFries('small'))
-                self.random_confirmation()
                 return "fries"
-        else:
-            self.state = "menu_items"
-            self.get_manager
 
     def add_to_item(self, input):
-        if search_negative(input):
-            self.state = "removals"
-            self.prompt_for_removal()
-            return
         item = self.order[-1]
         additional_item = False
         for ingredient in item.possible_ingredients:
             if ingredient in input:
                 item.add_addition(ingredient)
                 additional_item = True
-        if additional_item:
-            self.random_confirmation()
-            self.prompt_for_additional_addition()
         return
 
     def remove_from_item(self, input):
-        if search_negative(input):
-            self.state = "is that all"
-            self.prompt_for_end_order()
-            self.order[-1].print_order()
-            return
         item = self.order[-1]
         removed_item = False
         for ingredient in item.possible_ingredients:
             if ingredient in input:
                 item.add_removal(ingredient)
                 removed_item = True
-        if removed_item:
-            self.random_confirmation()
-            self.prompt_for_additional_removal()
+        if removed_item is False:
+            self.speak.playMP3("anything_else")
         return
 
     def order_complete(self, input):
         if search_affirmative(input):
             self.farewell()
             sys.exit()
+        elif search_negative(input):
+            self.prompt_for_menu_item()
+            self.state = "menu_item"
         return
 
     def confirm_order(self):
@@ -160,8 +130,68 @@ class Order:
                 removals += 1
         self.text_to_speech.textToSpeech(order, "order")
 
-    def order_string(self):
-        return
+    def order_food(self, input):
+        items = all_food_items(input)
+        ingredients = all_ingredients(input)
+        directors = all_with(input)
+        directors.extend(all_without(input))
+        print("REEEEEEE\n" + str(directors))
+        directors_applied = self.directors_applied(directors, ingredients)
+        if len(items) > 0:
+            i = 1
+            next_item = len(input)
+            for item in items:
+                if(i < len(items)):
+                    next_item = items[i].start()
+                self.try_to_add_item(item.group())
+                j = 0
+                while j < len(ingredients):
+                    if item.start() < ingredients[j].start() < next_item:
+                        print(directors_applied)
+                        if search_without(self.director(directors_applied[j],directors)):
+                            self.remove_from_item(ingredients[j].group(0))
+                        else:
+                            self.add_to_item(ingredients[j].group(0))
+                    j += 1
+                i += 1
+        else:
+            self.state = "is that all"
+            self.confirm_order()
+            return
+        self.speak.playMP3("anything_else")
+
+    def director(self, location, directors):
+        for director in directors:
+            if director.start() == location:
+                print(director)
+                return director.group(0)
+
+
+    def locations(self,directors):
+        if directors:
+            result = []
+            for d in directors:
+                result.append(d.start())
+            print("RESULT IS: " + str(result))
+            return result
+        else:
+            return []
+
+    def directors_applied(self, directors, ingredients):
+        result = []
+        director_locations = self.locations(directors)
+        ingredient_locations = self.locations(ingredients)
+        i = 0
+        while i < len(ingredients):
+            inner_result = []
+            for location in director_locations:
+                print("HERE THE DIRECTOR LOCATIONS ARE:" + str(director_locations))
+                if ingredient_locations[i] > location:
+                    inner_result.append(location)
+            result.append(max(inner_result)) if len(inner_result) > 0 else result.append(0)
+            i += 1
+        print(str(result))
+        return result
 
     def get_manager(self):
         self.speak.playMP3("get_manager")
