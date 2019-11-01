@@ -37,6 +37,9 @@ class Burger:
     def is_valid_size(size):
         return size in Burger.size_options
 
+    def upsell(self):
+        return ("bacon", 1)
+
     def get_name(self):
         return self.name
 
@@ -119,6 +122,8 @@ class Fries:
     size_options = ["small", "medium", "large"]
     possible_ingredients = {
         "salt": 0,
+        "gravy": 1,
+        "ketchup": 0
     }
 
     def __init__(self, size):
