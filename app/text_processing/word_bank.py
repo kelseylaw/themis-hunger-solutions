@@ -99,8 +99,8 @@ def search_affirmative(input):
     return False
 
 def search_hostile(input):
-    for affirmative in response_affirmative:
-        if affirmative in input:
+    for hostile in response_hostile:
+        if hostile in input:
             return True
     return False
 

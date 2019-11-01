@@ -15,10 +15,11 @@ class Order:
         self.order = []
         self.greet()
 
-
     def input(self, input):
         input = input.lower()
-        if self.state == "greet":
+        if search_hostile(input):
+            self.get_manager()
+        elif self.state == "greet":
             self.state = "menu_item"
         elif self.state == "menu_item":
             self.try_to_add_item(input)
