@@ -12,6 +12,7 @@ class Order:
         self.speak = PlayMP3.PlayMP3()
         self.text_to_speech = TextToSpeech.TextToSpeech()
         self.state = "greet"
+        self.prompt_anything_else = True
         self.order = []
         self.greet()
 
@@ -149,6 +150,7 @@ class Order:
                             self.add_to_item(ingredients[j].group(0))
                     j += 1
                 i += 1
+                self.prompt_anything_else = True
         else:
             if search_negative(input):
                 self.state = "is that all"
@@ -158,7 +160,8 @@ class Order:
             elif search_affirmative(input):
                 self.speak.playMP3("what_else_can_i_get_for_you")
                 return
-        self.speak.playMP3("anything_else")
+        self.speak.playMP3("anything_else") if self.prompt_anything_else else False
+        self.prompt_anything_else = False
 
     def director(self, location, directors):
         for director in directors:
