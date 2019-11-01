@@ -132,7 +132,6 @@ class Order:
         ingredients = all_ingredients(input)
         directors = all_with(input)
         directors.extend(all_without(input))
-        print("REEEEEEE\n" + str(directors))
         directors_applied = self.directors_applied(directors, ingredients)
         if len(items) > 0:
             i = 1
@@ -144,7 +143,6 @@ class Order:
                 j = 0
                 while j < len(ingredients):
                     if item.start() < ingredients[j].start() < next_item:
-                        print(directors_applied)
                         if search_without(self.director(directors_applied[j],directors)):
                             self.remove_from_item(ingredients[j].group(0))
                         else:
@@ -160,7 +158,6 @@ class Order:
     def director(self, location, directors):
         for director in directors:
             if director.start() == location:
-                print(director)
                 return director.group(0)
 
 
@@ -169,7 +166,6 @@ class Order:
             result = []
             for d in directors:
                 result.append(d.start())
-            print("RESULT IS: " + str(result))
             return result
         else:
             return []
@@ -182,12 +178,10 @@ class Order:
         while i < len(ingredients):
             inner_result = []
             for location in director_locations:
-                print("HERE THE DIRECTOR LOCATIONS ARE:" + str(director_locations))
                 if ingredient_locations[i] > location:
                     inner_result.append(location)
             result.append(max(inner_result)) if len(inner_result) > 0 else result.append(0)
             i += 1
-        print(str(result))
         return result
 
     def get_manager(self):
