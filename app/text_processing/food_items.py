@@ -130,6 +130,7 @@ class Fries:
         "salt": 0,
         "gravy": 1,
         "cheese curds": 1,
+        "poutine": 2,
         "ketchup": 0
     }
 
@@ -154,6 +155,17 @@ class Fries:
     def is_valid_size(size):
         return size in Fries.size_options
 
+    def upsell(self):
+        if self.name == "regular fries" and ["cheese curds", "gravy"] not in self.additions:
+            return ("poutine", 2)
+        elif "gravy" not in self.additions:
+            return ("cheese curds", 1)
+        elif "cheese curds" not in self.additions:
+            return ("gravy", 1)
+        else:
+            return ("ketchup", 0)
+
+
     def get_name(self):
         return self.name
 
@@ -176,7 +188,18 @@ class Fries:
         if ingredient in self.additions:
             print("You've already added that extra ingredient to the fries! Do you really need that much more?")
         elif ingredient in Fries.possible_ingredients.keys():
-            self.additions.append(ingredient)
+            if (ingredient == "poutine" or ingredient == "gravy") and "cheese curds" in self.additions:
+                self.additions.remove("cheese curds")
+                self.additions.append(ingredient)
+                print("I'll make it a poutine, eh?")
+            elif (ingredient == "poutine" or ingredient == "cheese curds") and "gravy" in self.additions:
+                self.additions.remove("gravy")
+                self.additions.append(ingredient)
+                print("I'll make it a poutine, eh?")
+            elif (ingredient == "gravy" or ingredient == "cheese curds") and "poutine" in self.additions:
+                print("You've already made a poutine!")
+            else:
+                self.additions.append(ingredient)
         else:
             print("What the fries! I can't add that to your fries!")
 
