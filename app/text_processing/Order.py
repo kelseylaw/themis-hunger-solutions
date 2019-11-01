@@ -20,6 +20,8 @@ class Order:
         input = input.lower()
         if search_hostile(input):
             self.get_manager()
+        elif "football" in input or "foot ball" in input:
+            self.speak.playMP3("small_talk_ludicrous")
         elif self.state == "greet":
             self.state = "menu_item"
         elif self.state == "menu_item":
@@ -102,7 +104,6 @@ class Order:
             self.farewell()
             sys.exit()
         elif search_negative(input):
-            self.prompt_for_menu_item()
             self.state = "menu_item"
         return
 
@@ -159,7 +160,7 @@ class Order:
                 self.speak.playMP3("prompt_for_end_order")
                 return
             elif search_affirmative(input):
-                self.speak.playMP3("what_else_can_i_get_for_you")
+                self.speak.playMP3("what_else_can_i_get_for_you") if self.prompt_anything_else else False
                 return
         self.speak.playMP3("anything_else") if self.prompt_anything_else else False
         self.prompt_anything_else = False
