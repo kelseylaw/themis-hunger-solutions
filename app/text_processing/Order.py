@@ -1,4 +1,5 @@
 from food_items import *
+from word_bank import *
 import sys
 
 sys.path.insert(1, "app/audio_output")
@@ -59,10 +60,8 @@ class Order:
         self.speak.playMP3("farewell")
 
     def try_to_add_item(self, input):
-        self.state = "additions"
         self.say(self.add_item_to_order(input))
-        if self.state == "additions":
-            self.prompt_for_addition()
+        self.prompt_for_addition()
 
     def add_item_to_order(self, input):
 
@@ -92,35 +91,38 @@ class Order:
             self.speak("get_manager")
 
     def add_to_item(self, input):
-        if "no" in input:
+        if search_negative(input):
             self.state = "removals"
             self.prompt_for_removal()
             return
         item = self.order[-1]
-        print("reeee?" + str(item.ingredients))
-        for ingredient in item.ingredients:
+        addition_item = False
+        for ingredient in item.possible_ingredients:
             if ingredient in input:
-                print("reeee" + ingredient)
                 item.add_addition(ingredient)
+                additional_item = True
         # self.say("anything else?")
-        self.speak.playMP3("anything_else") ## KELSEY & JULIEN
+        if addition_item:
+            self.speak.playMP3("anything_else") ## KELSEY & JULIEN
         return
 
     def remove_from_item(self, input):
-        if "no" in input:
+        if search_negative(input):
             self.state = "is that all"
             self.prompt_for_end_order()
             return
         item = self.order[-1]
-        for ingredient in item.ingredients:
+        removed_item = False
+        for ingredient in item.possible_ingredients:
             if ingredient in input:
                 item.add_removal(ingredient)
-        # self.say("anything else?") ## KELSEY && JULIEN
-        self.speak.playMP3("anything_else")
+                removed_item = True
+        if removed_item:
+            self.speak.playMP3("anything_else")
         return
 
     def order_complete(self, input):
-        if "yes" in input:
+        if search_affirmative(input):
             for order in self.order:
                 order.print_order()
             self.farewell()
