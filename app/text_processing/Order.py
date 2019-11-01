@@ -121,6 +121,8 @@ class Order:
 
     def order_complete(self, input):
         if "yes" in input:
+            for order in self.order:
+                order.print_order()
             self.farewell()
             del self
         return
