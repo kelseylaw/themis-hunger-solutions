@@ -26,7 +26,7 @@ class Order:
         elif self.state == "is that all":
             self.order_complete(input)
         else:
-            self.get_manager
+            self.get_manager()
 
     def greet(self):
         print("\n\n")

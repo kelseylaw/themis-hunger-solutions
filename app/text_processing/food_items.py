@@ -31,8 +31,8 @@ class Burger:
         self.speak = PlayMP3.PlayMP3()
         if size in self.size_options:
             self.size = size
-        else:
-            self.speak.playMP3("confirm_invalid_size")
+        # else:
+            # self.speak.playMP3("confirm_invalid_size")
 
     @classmethod
     def is_valid_type(size):
@@ -88,21 +88,21 @@ class Burger:
         return self.possible_ingredients.get(addition, 0)
 
     def add_addition(self, ingredient):
-        if ingredient in self.additions:
-            self.speak.playMP3("confirm_already_added")
-        elif ingredient in Burger.possible_ingredients.keys():
+        # if ingredient in self.additions:
+        #     self.speak.playMP3("confirm_already_added")
+        if ingredient in Burger.possible_ingredients.keys():
             self.additions.append(ingredient)
             self.set_price()
-        else:
-            self.speak.playMP3("confirm_not_valid")
+        # else:
+        #     self.speak.playMP3("confirm_not_valid")
 
     def add_removal(self, ingredient):
-        if ingredient in self.removals:
-            self.speak.playMP3("confirm_already_removed")
-        elif ingredient in self.ingredients:
+        # if ingredient in self.removals:
+        #     self.speak.playMP3("confirm_already_removed")
+        if ingredient in self.ingredients:
             self.removals.append(ingredient)
-        else:
-            self.speak.playMP3("confirm_not_valid")
+        # else:
+        #     self.speak.playMP3("confirm_not_valid")
 
     def print_order(self):
         print(self.size.upper() + " " + self.name.upper() + "\t\t\t$" + str(self.get_price()))
@@ -171,8 +171,8 @@ class Fries:
         self.speak = PlayMP3.PlayMP3()
         if size in self.size_options:
             self.size = size
-        else:
-            self.speak.playMP3("confirm_invalid_size")
+        # else:
+        #     self.speak.playMP3("confirm_invalid_size")
 
     @classmethod
     def is_valid_type(size):
@@ -225,9 +225,9 @@ class Fries:
         return self.possible_ingredients.get(addition, 0)
 
     def add_addition(self, ingredient):
-        if ingredient in self.additions:
-            self.speak.playMP3("confirm_already_added")
-        elif ingredient in Fries.possible_ingredients.keys():
+        # if ingredient in self.additions:
+        #     self.speak.playMP3("confirm_already_added")
+        if ingredient in Fries.possible_ingredients.keys():
             if ingredient == "gravy" and "cheese curds" in self.additions:
                 self.additions.remove("cheese curds")
                 self.additions.append(ingredient)
@@ -236,16 +236,16 @@ class Fries:
                 self.additions.append(ingredient)
             else:
                 self.additions.append(ingredient)
-        else:
-            self.speak.playMP3("confirm_not_valid")
+        # else:
+        #     self.speak.playMP3("confirm_not_valid")
 
     def add_removal(self, ingredient):
-        if ingredient in self.removals:
-            self.speak.playMP3("confirm_already_removed")
-        elif ingredient in self.ingredients:
+        # if ingredient in self.removals:
+        #     self.speak.playMP3("confirm_already_removed")
+        if ingredient in self.ingredients:
             self.removals.append(ingredient)
-        else:
-            self.speak.playMP3("confirm_not_valid")
+        # else:
+        #     self.speak.playMP3("confirm_not_valid")
 
     def print_order(self):
         print(self.size.upper() + " " + self.name.upper() + "\t\t\t$" + str(self.get_price()))
