@@ -57,7 +57,6 @@ class Order:
 
     def try_to_add_item(self, input):
         self.add_item_to_order(input)
-        self.prompt_for_addition()
 
     def add_item_to_order(self, input):
         if "burger" in input:
