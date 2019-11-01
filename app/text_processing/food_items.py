@@ -37,6 +37,20 @@ class Burger:
     def is_valid_size(size):
         return size in Burger.size_options
 
+    @classmethod
+    def print_burger_menu(cls):
+        print("WELCOME TO THEMIS HUNGER SOLUTIONS! I'M HENRY, HERE'S YOUR MENU:\n")
+        print("BURGERS:")
+        print("\tCHEESEBURGER\t\t\t$7.99")
+        print("\tCHICKEN BURGER\t\t\t$8.99")
+        print("\tVEGGIE BURGER\t\t\t$8.99")
+        print("ADD-ONS:")
+        for addon in cls.possible_ingredients.keys():
+            if "patty" in addon:
+                print("\t" + addon.upper() + "\t\t$" + str(cls.possible_ingredients.get(addon)))
+            else:
+                print("\t" + addon.upper() + "\t\t\t$" + str(cls.possible_ingredients.get(addon)))
+
     def upsell(self):
         if self.name == "veggie burger":
             return ("veggie patty", 1.5)
@@ -74,6 +88,8 @@ class Burger:
         elif ingredient in Burger.possible_ingredients.keys():
             self.additions.append(ingredient)
             self.set_price()
+            if len(self.additions) == 1:
+                print("Sweet! I added that to your burger.")
         else:
             print("What the fries! I can't add that to the burger!")
 
@@ -82,6 +98,8 @@ class Burger:
             print("Darn! You've already removed that from the burger!")
         elif ingredient in self.ingredients:
             self.removals.append(ingredient)
+            if len(self.removals) == 1:
+                print("Cool beans! I got rid of that from your burger.")
         else:
             print("What the fries! I can't remove that!")
 
@@ -200,6 +218,8 @@ class Fries:
                 print("You've already made a poutine!")
             else:
                 self.additions.append(ingredient)
+                if len(self.additions) == 1:
+                    print("Awesome! I added that to your fries.")
         else:
             print("What the fries! I can't add that to your fries!")
 
@@ -208,6 +228,8 @@ class Fries:
             print("Darn! You've already removed that from the fries!")
         elif ingredient in self.ingredients:
             self.removals.append(ingredient)
+            if len(self.removals) == 1:
+                print("OK! I got rid of that from your fries.")
         else:
             print("What the fries! I can't remove that!")
 

@@ -32,8 +32,10 @@ class Order:
             self.get_manager
 
     def greet(self):
+        Burger.print_burger_menu()
         self.speak.playMP3("greet")
         self.state = "menu_item"
+        print("\nYOUR ORDER:\n")
 
     def prompt_for_menu_item(self):
         self.speak.playMP3("prompt_for_menu_item")
@@ -116,6 +118,7 @@ class Order:
         if search_negative(input):
             self.state = "is that all"
             self.prompt_for_end_order()
+            self.order[-1].print_order()
             return
         item = self.order[-1]
         removed_item = False
@@ -130,8 +133,6 @@ class Order:
 
     def order_complete(self, input):
         if search_affirmative(input):
-            for order in self.order:
-                order.print_order()
             self.farewell()
             sys.exit()
         return
